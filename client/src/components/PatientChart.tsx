@@ -22,7 +22,7 @@ export function PatientChart({ data }: PatientChartProps) {
         />
         <Line 
           type="monotone" 
-          dataKey="Mean" 
+          dataKey="LB" 
           stroke="hsl(var(--primary))" 
           strokeWidth={2}
           dot={false}

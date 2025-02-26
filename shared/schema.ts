@@ -28,7 +28,8 @@ export const patientDataSchema = z.object({
   Tendency: z.string(),
   CLASS: z.string(),
   NSP: z.string(),
-  timestamp: z.number()
+  timestamp: z.number(),
+  alert_state: z.string(),
 });
 
 export type PatientData = z.infer<typeof patientDataSchema>;

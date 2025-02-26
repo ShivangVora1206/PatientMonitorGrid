@@ -4,14 +4,18 @@ import type { PatientData } from "@shared/schema";
 
 interface PatientWindowProps {
   data: PatientData[];
+  windowId: string;
 }
 
-export function PatientWindow({ data }: PatientWindowProps) {
+export function PatientWindow({data, windowId}: PatientWindowProps) {
   const latestData = data[data.length - 1];
+  if(windowId !== latestData?.patient_id) {
+    return null;
+  }
 
   if (!latestData) {
     return (
-      <Card className="w-full h-full flex items-center justify-center">
+      <Card className={`w-full h-full flex items-center justify-center`}>
         <CardContent>
           <p className="text-muted-foreground">Waiting for patient data...</p>
         </CardContent>
@@ -20,7 +24,7 @@ export function PatientWindow({ data }: PatientWindowProps) {
   }
 
   return (
-    <Card className="w-full h-full">
+    <Card className={`w-full h-full ${latestData.alert_state === "critical" ? 'bg-red-100' : ''} ${latestData.alert_state === "warning" ? 'bg-yellow-200' : ''} ${latestData.alert_state === "normal" ? 'bg-green-200' : ''}`}>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg font-bold flex justify-between items-center">
           <span>{latestData.patient_name}</span>
